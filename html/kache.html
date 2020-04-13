@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物流</title>
+    <link type="text/css" rel="styleSheet" href="../css/kache.css" />
+</head>
+
+<body>
+    <li class="item" id="item">
+        <!-- <div class="left box1">
+            <span><img src="../img/kache.png" alt=""></span>
+            <span class="span-block">13米层高</span>
+        </div>
+        <div class="left box2">
+            <span class="text-bold text-right">成都市成华区</span>
+            <span class="span-block sm-size text-right">载货体积：13*2.35*2.5m</span>
+        </div>
+        <div class="center box3">
+            <span class="sm-size"  style="margin-top: 0px;">26.5H</span>
+            <span class="span-block text-bold" style="font-size: 24px;">&nbsp;&nbsp;→</span>
+            <span class="span-block sm-size" style="margin-top: 0px;">700Km</span>
+        </div>
+        <div class="left box4">
+            <span class="text-bold">成都市成华区</span>
+            <span class="span-block sm-size">载货重量：32吨</span>
+        </div>
+        <div class="left box5">
+            <span class="text-bold">一口价：￥100.00元</span>
+            <span class="span-block sm-size">累计已发：666车</span>
+        </div>
+        <div class="center box6">
+            <button>立即用车</button>
+        </div> -->
+    </li>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script type="text/template" id="ListTemplate">
+    {{#each this}}
+        <div class="left box1">
+            <span><img src="../img/kache.png" alt=""></span>
+            <span class="span-block">{{car.carHeight}}米层高</span>
+        </div>
+        <div class="left box2">
+            <span class="text-bold text-right">{{startAddress.province.name}}{{startAddress.city.name}}{{startAddress.district.name}}</span>
+            <span class="span-block sm-size text-right">载货体积：{{car.carLong}}*{{car.carWidth}}*{{car.carHeight}}m</span>
+        </div>
+        <div class="center box3">
+            <span class="sm-size"  style="margin-top: 0px;">{{hoursLength}}H</span>
+            <span class="span-block text-bold" style="font-size: 24px;">&nbsp;&nbsp;→</span>
+            <span class="span-block sm-size" style="margin-top: 0px;">{{distance}}Km</span>
+        </div>
+        <div class="left box4">
+            <span class="text-bold">{{endAddress.province.name}}{{endAddress.city.name}}{{endAddress.district.name}}</span>
+            <span class="span-block sm-size">载货重量：{{car.carload}}吨</span>
+        </div>
+        <div class="left box5">
+            <span class="text-bold">一口价：￥{{price}}元</span>
+            <span class="span-block sm-size">累计已发：{{usageCount}}车</span>
+        </div>
+        <div class="center box6">
+            <button>立即用车</button>
+        </div>
+    {{/each}}
+</script>
+<script>
+    var data = [{
+        "id": 1,
+        "lineNo": "10000000000000",
+        "distance": 0.63,
+        "hoursLength": 0.37,
+        "price": 11122.32,
+        "usageCount": 0,
+        "startAddress": {
+            "province": {
+                "name": "山西省",
+                "code": "140000",
+                "level": {
+                    "value": "first",
+                    "desc": "first level"
+                },
+                "postCode": "",
+                "longitude": "112.549248",
+                "latitude": "37.857014"
+            },
+            "city": {
+                "name": "太原市",
+                "code": "140100",
+                "level": {
+                    "value": "second",
+                    "desc": "second level"
+                },
+                "postCode": "030082",
+                "longitude": "112.549248",
+                "latitude": "37.857014"
+            },
+            "district": {
+                "name": "晋源区",
+                "code": "140110",
+                "level": {
+                    "value": "third",
+                    "desc": "third level"
+                },
+                "postCode": "030025",
+                "longitude": "112.47985",
+                "latitude": "37.72479"
+            },
+            "street": null,
+            "detailAddress": null
+        },
+        "endAddress": {
+            "province": {
+                "name": "内蒙古自治区",
+                "code": "150000",
+                "level": {
+                    "value": "first",
+                    "desc": "first level"
+                },
+                "postCode": "",
+                "longitude": "111.670801",
+                "latitude": "40.818311"
+            },
+            "city": {
+                "name": "包头市",
+                "code": "150200",
+                "level": {
+                    "value": "second",
+                    "desc": "second level"
+                },
+                "postCode": "014025",
+                "longitude": "109.840405",
+                "latitude": "40.658168"
+            },
+            "district": {
+                "name": "东河区",
+                "code": "150202",
+                "level": {
+                    "value": "third",
+                    "desc": "third level"
+                },
+                "postCode": "014040",
+                "longitude": "110.0462",
+                "latitude": "40.58237"
+            },
+            "street": null,
+            "detailAddress": null
+        },
+        "car": {
+            "id": 3,
+            "typeName": "小微货",
+            "typeDesc": "≤80km运输，可在日用品、生鲜、建材、小家具、纺织品",
+            "loadingType": {
+                "value": "low_bar",
+                "desc": "低栏"
+            },
+            "carLong": 2.70,
+            "carLoad": 1500.00,
+            "carHeight": 1.50,
+            "carWidth": 1.70,
+            "loadVolume": 6.88,
+            "carTypeImage": null
+        }
+    }]
+    //通过模板定义的id获取模板
+    var tpl = $("#ListTemplate").html();
+    //预编译模板
+    var template = Handlebars.compile(tpl);
+    //传入需要填充的数据匹配
+    var html = template(data);
+    //插入模板到ul中
+    $("#item").html(html);
+</script>
+
+</html>
